@@ -1,0 +1,64 @@
+{
+    "users": [
+        {
+            "yair": {
+                "username": "yair",
+                "password": "yair123",
+                "email": "mizrachi.yair@gmail.com",
+                "icon color": "#25c127",
+                "subscribe to": [
+                    "yair3",
+                    "yair2",
+                    "shai"
+                ],
+                "subscribers": [
+                    "yair2"
+                ],
+                "videos uploaded": [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5"
+                ]
+            },
+            "yair2": {
+                "username": "yair2",
+                "password": "yair2123",
+                "email": "mizrachi.yair@gmail.com",
+                "icon color": "#123456",
+                "subscribe to": [
+                    "yair",
+                    "yair3"
+                ],
+                "subscribers": [
+                    "yair"
+                ],
+                "videos uploaded": []
+            },
+            "shai": {
+                "username": "shai",
+                "password": "shai123",
+                "email": "mizrachi.shai@gmail.com",
+                "icon color": "#123456",
+                "subscribe to": [],
+                "subscribers": [
+                    "yair"
+                ],
+                "videos uploaded": []
+            },
+            "yair3": {
+                "username": "yair3",
+                "password": "yair3123",
+                "email": "supergamingclash@gmail.com",
+                "icon color": "#00ffee",
+                "subscribe to": [],
+                "subscribers": [
+                    "yair",
+                    "yair2"
+                ],
+                "videos uploaded": []
+            }
+        }
+    ]
+}

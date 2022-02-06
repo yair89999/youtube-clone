@@ -1,0 +1,68 @@
+{
+    "videos": [
+        {
+            "1": {
+                "uploader": "yair",
+                "title": "My first video",
+                "uploaded at": "01/17/2022, 17:56:27",
+                "views": 238,
+                "genre": "all family",
+                "path": "videos//1.mp4",
+                "id": "1",
+                "comments": {
+                    "1": {
+                        "comment": "this is the first comment and a test",
+                        "by": "yair",
+                        "date": "01/25/2022, 20:25:37"
+                    },
+                    "3": {
+                        "comment": "this is yair2's first comment\r\ngreat video",
+                        "by": "yair2",
+                        "date": "01/25/2022, 20:55:50",
+                        "id": "3"
+                    }
+                }
+            },
+            "2": {
+                "uploader": "yair",
+                "title": "this is a test",
+                "uploaded at": "01/18/2022, 12:31:56",
+                "views": 3,
+                "genre": "comedy",
+                "path": "videos//2.mp4",
+                "id": "2",
+                "comments": {}
+            },
+            "3": {
+                "uploader": "yair",
+                "title": "test3",
+                "uploaded at": "01/18/2022, 12:32:15",
+                "views": 3,
+                "genre": "science",
+                "path": "videos//3.mp4",
+                "id": "3",
+                "comments": {}
+            },
+            "4": {
+                "uploader": "yair",
+                "title": "test4",
+                "uploaded at": "01/19/2022, 18:04:13",
+                "views": 2,
+                "genre": "school related",
+                "path": "videos//4.mp4",
+                "id": "4",
+                "comments": {}
+            },
+            "5": {
+                "uploader": "yair",
+                "title": "test",
+                "uploaded at": "01/26/2022, 18:53:11",
+                "views": 4,
+                "genre": "Tv shows",
+                "path": "videos//5.mp4",
+                "comments": {},
+                "id": "5"
+            }
+        }
+    ]
+}
