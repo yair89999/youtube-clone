@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        
+        <link rel="icon" href="{{url_for('static',filename='youtube icon.png')}}"> <!--sets icon for the web-->
+        <title>
+            YouTube
+        </title>
+        <style>
+            :root { /* css variables */
+                --imgwidth:10%;
+                --iconwidth:0px; /* 0px because it changes in .user-options-btn to the right one */
+                --iconheight:0px; /* 0px because it changes in .user-options-btn to the right one */
+            }
+            html {
+                min-width: 270px;
+            }
+
+            .nav-bar {
+                border-bottom: 1px solid rgb(180,180,205);
+                min-height: 70px;
+            }
+            .nav-bar > .img-a > .go-home-img { /* the go-home-img class that is in the class img-a that is in the class nav-bar */
+                width: var(--imgwidth);
+                aspect-ratio: 4.5;
+                /* at the  rightest point of the screen*/
+                position: absolute;left: 89.5%; top: 15px; /* almost at the rightest it can be(mor 0.5% and it will be on the rightest) */
+            }
+            .nav-bar > .img-a > .go-home-img:hover {
+                cursor:pointer
+            }
+            /* doing this a tag things cause of a bug */
+            nav-bar > a {text-decoration: none;}
+            nav-bar > a:hover {cursor: context-menu;}
+            nav-bar > a:active {cursor: context-menu;}
+
+            .login-btn{
+                transition-duration: 0.3s;
+                position: relative; left: 0px;
+                font-size: 150%;
+                margin: 5px;
+                border-radius: 100px;
+                background: rgb(0,191,255);
+                border: 2px solid rgb(0,121,185);
+            }
+            .login-btn:hover {
+                cursor: pointer;
+                background: rgb(0,161,225);
+            }
+            .login-btn:active {
+                color: #fff;
+            }
+
+
+            .user-options-btn {
+                position: relative; left: 0px;
+                margin: 10px;
+                font-size: 200%;
+
+                width:  4ch;
+                --iconwidth:4ch;
+                height: 4ch;
+                --iconheight:4ch;
+                
+                border-radius: 100px;
+                border: 2px solid #000;
+                background: {{icon_color}}; /* shows as error but works */
+            }
+            .user-options-btn:hover {
+                cursor: pointer;
+                filter: grayscale(50%);
+            }
+            .user-options-btn:active {
+                transform: scale(1.05);
+            }
+            .user-options {
+                display: none;
+                z-index: 1;
+
+                font-size: 200%;
+                position: absolute; left: 10px; top: 12ch;
+                font-size: 100%;
+
+                width: 30ch;
+                background: rgb(250,250,250);
+                border: 2px solid rgb(230,230,230);
+                border-top: transparent;
+            }
+            .user-options > a > .option {
+                background: transparent;
+                font-size: 130%;
+                width: 100%;
+                text-align: left;
+
+                border: transparent;
+                border-bottom: 1px solid rgb(230,230,230);
+                border-top: 1px solid rgb(230,230,230);
+
+                padding: 5px;
+                padding-right: 0px;
+            }
+            .user-options > a > .option:hover {
+                transition-duration: 0.15s;
+                cursor: pointer;
+                background: rgb(230,230,230);
+            }
+            .user-options > a > .option:active {
+                background: rgb(210,210,210);
+            }
+
+            .search-div {
+                display: inline-block;
+                position: relative; left: 50%;
+                transform: translateX(-50%);
+
+            }
+            .search-div > form > .search-input {
+                transition-duration: 0.3s;
+                font-size: 120%;
+                width: 50ch;
+
+                padding-right: 10px;
+
+                border: 2px solid #000;
+                border-top-right-radius: 100px;
+                border-bottom-right-radius: 100px;
+            }
+            .search-div > form > .search-input:hover {
+                border: 2px solid rgb(0,134,139);
+            }
+            .search-div > form > .search-input:focus {
+                background: rgba(0,134,139, 0.5);
+            }
+            .search-div > form > label > .submit-btn {
+                transition-duration: 0.3s;
+                position: relative; left: 2.315px;
+                font-size: 120%;
+                transform: scale(1.05);
+
+                background: #2196f3;
+
+                border: 1px solid #1e6baa;
+                border-radius: 0px; /* restart the border */
+            }
+            .search-div > form > label > .submit-btn:hover {
+                cursor: pointer;
+                background: #3b89c9;
+            }
+            .search-div > form > label > .submit-btn:active {
+                background: #1e6baa;
+                color: #fff;
+            }
+        </style>
+        {% block head %}
+        {% endblock %}
+    </head>
+    <body>
+        <!--the form is in:
+        navbar (login = True)
+        div class = search-div-->
+        <nav class="nav-bar">
+            <a href="/" class="img-a"> <!--rightest-->
+                <img class="go-home-img" src="{{url_for('static', filename='YouTube-Logo.jpg')}}"><!--original image size: 659x145  4.5:1-->
+            </a>
+            {% if login == True %}
+                <button class="user-options-btn" onclick="show_hide_options()">{{first_letter}}</button>
+                <div class="user-options" id="user-options">
+                    <a href="/home">
+                        <button class="option" style="border-top: transparent;">Home</button>
+                    </a>
+                    <a href="/my page">
+                        <button class="option" style="border-top: transparent;">My page</button>
+                    </a>
+                    <a href="/my videos">
+                        <button class="option">Videos</button> <!--from videos you have a button that goes to upload video page-->
+                    </a>
+                    <a href="/sub to">
+                        <button class="option">I sub to</button> <!--from videos you have a button that goes to upload video page-->
+                    </a>
+                    <a href="/logout">
+                        <button class="option">Logout</button>
+                    </a>
+                    
+                </div>
+
+                <div class="search-div">
+                    <form method="post">
+                        <label for="to search">
+                            <button type="submit" class="submit-btn">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </label>
+                        <input name="to search" type="search" class="search-input" id="search-input"> <!--using an id because it changes in the file "show search result.html"(the file called from almost every function)-->
+                    </form>
+                </div>
+            {% else %}
+                <a href="/login">
+                    <button class="login-btn">sign in</button>
+                </a>
+            {% endif %}
+        </nav>
+        {% block code %}
+        {% endblock %}
+
+        <script>
+            document.getElementById("user-options").style.display = "none" // helps for the changes later
+            function show_hide_options(){
+                var d = document.getElementById("user-options") // d = div
+                if (d.style.display == "none"){
+                    d.style.display = "inline-block"
+                } else {
+                    d.style.display = "none"
+                }
+            }
+        </script>
+    </body>
+</html>

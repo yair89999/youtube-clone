@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <style>
+        .users {
+            display: inline-block;
+            position: relative;left: 50%;
+            transform: translateX(-50%);
+            border-collapse: collapse;
+            border: 1px solid rgb(230,230,230);
+            background: rgb(245,245,245);
+        }
+        td,th {
+            padding: 5px;
+            border: 1px solid #000;
+        }
+        .not-icon {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        td > a {
+            text-decoration: none;
+            color: #000;
+        }
+        td > a:hover {
+            cursor: pointer;
+        }
+        td > a:active {
+            color: rgb(0,0,200);
+        }
+
+        .icon {
+                position: relative; left: 0px;
+                margin: 10px;
+                font-size: 200%;
+                width: 3ch;
+                height: 3ch;
+                
+                border-radius: 100px;
+                border: 2px solid #000;
+        }
+        .icon:hover {
+            cursor: pointer;
+            filter: grayscale(50%);
+        }
+        .icon:active {
+            transform: scale(1.05);
+        }
+    </style>
+{% endblock %}
+
+{% block code %}
+    <p style="text-align: center;">The users i subscribe to</p>
+    <table class="users">
+        <tr>
+            <th>User icon</th>
+            <th>User</th>
+            <th>Subscribers</th>
+        </tr>
+        {% for user in subed_to %}
+            <tr>
+                <td>
+                    <a href="/show page/{{user}}">
+                        <button class="icon" style="background: {{subed_to[user]['color']}};">{{user[0]}}</button>
+                    </a>
+                </td>
+                <td class="not-icon">
+                    <a href="/show page/{{user}}">{{user}}</a>
+                </td>
+                <td class="not-icon" style="text-align: center;">
+                    {{subed_to[user]["subscribers"]}}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

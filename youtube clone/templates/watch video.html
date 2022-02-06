@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <style>
+        .video-div {
+            position: absolute; left: 50%;
+            transform: translateX(-50%);
+            margin-top: 10px;
+            padding-left: 15px;
+            padding-bottom: 50px;
+
+            width: calc(100% - 15px );
+
+            background: rgb(250,250,250);
+        }
+        .video {
+            width: 50%;
+            aspect-ratio: 1.5;
+            margin-top: 10px;
+            background: #fff;
+        }
+        .title {
+            font-size: 120%;
+        }
+        .views {
+            color: rgb(90,90,90);
+        }
+
+
+        .comment-textarea {
+                transition-duration: 0.3s;
+                font-size: 120%;
+                width: 50ch;
+                height: 10ch;
+                resize: none;
+
+                padding-right: 10px;
+
+                border: 2px solid #000;
+            }
+            .comment-textarea:hover {
+                cursor:pointer;
+                border: 2px solid rgb(0,134,139);
+            }
+            .comment-textarea:focus {
+                cursor: auto;
+                background: rgba(0,255,255, 0.5);
+            }
+            .for-comment {
+                font-size: 120%;
+                position: relative; top: -8ch;
+            }
+            .post-btn {
+                position: relative; top: -5ch;
+                font-size: 110%;
+                color: rgb(0,0,255);
+                background: transparent;
+                border: transparent;
+            }
+            .post-btn:hover {
+                cursor: pointer;
+            }
+
+            .comment-div {
+                display: inline-block;
+                border: 1px solid rgb(200,200,215);
+                font-size: 110%;
+                width: 70ch;
+                
+                margin-left: 3%;
+                padding: 5px;
+            }
+
+            .del-comment-btn-p {
+                text-align: right;
+            }
+            .del-comment-btn {
+                font-size: 150%;
+                background: transparent;
+                border: transparent;
+            }
+            .del-comment-btn:hover {
+                cursor: pointer;
+                color: rgb(0,0,100);
+            }
+            .del-comment-btn:active {
+                color: rgb(0,0,150);
+            }
+    </style>
+{% endblock %}
+
+{% block code %}
+    <div class="video-div">
+        {% if video %} <!--if the video was passed to the file-->
+            <video controls class="video">
+                <source src="{{url_for('static', filename=video['path'])}}" type="video/mp4">
+            </video>
+            <p class="title">
+                By: <a href="/show page/{{video['uploader']}}">{{video["uploader"]}}</a> ,{{video["title"]}}
+            </p>
+            <p class="views">
+                {{video["views"]}} views
+            </p>
+            <p style="padding-bottom: 10px; border-bottom: 2px solid rgb(210,210,210);">
+                uploaded at {{video["uploaded at"]}}
+            </p>
+
+            
+            <form method="post">
+                <p>
+                    <label for="comment" class="for-comment">Write a comment: </label>
+                    <textarea name="comment" class="comment-textarea" onclick="change_post_text()"></textarea>
+                    
+                    <button class="post-btn" type="submit">Post</button>
+                </p>
+            </form>
+
+            <p>
+                <div class="comment-div" style="border: transparent;margin-left: 1%;">
+                    <p style="font-size: 130%;">
+                        Comments:
+                    </p>
+                </div>
+            </p>
+            {% for comment in comments %}
+                <p>
+                    <div class="comment-div">
+                        <p>
+                            <a href="/show page/{{comments[comment]['by']}}">{{comments[comment]["by"]}}</a>, at: <a style="font-size: 80%;">{{comments[comment]["date"]}}</a></p>
+                        <p>
+                            <pre>{{comments[comment]["comment"]}}</pre>
+                        </p>
+                        {% if username == comments[comment]["by"] %}
+                            <p class="del-comment-btn-p">
+                                <a href="/del comment/{{video['id']}}/{{comment}}">
+                                    <button class="del-comment-btn">
+                                        <i style="font-size:24px" class="fa">&#xf014;</i>
+                                    </button>
+                                </a>
+                            </p>
+                        {% endif %}
+                    </div>
+                </p>
+            {% endfor %}
+
+        {% else %}
+                <p style="text-align: center;font-size: 150%;">{{error}}</p>
+        {% endif %}
+    </div>
+{% endblock %}

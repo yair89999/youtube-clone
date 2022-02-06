@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <style>
+        .all-videos-div {
+            background: rgb(245,245,245);
+            padding: 10px;
+        }
+        .video-div {
+            padding: 10px;
+            margin: 5px;
+            border: 2px solid rgb(200,200,200);
+            
+            /*             LU   RU   RD    LD*/
+            border-radius: 50px 10px 100px 10px ;
+        }
+        .video {
+            width: 25%;
+            aspect-ratio: 1.5;
+        }
+        .title {
+            font-size: 120%;
+        }
+        .views {
+            font-size: 120%;
+            color: rgb(50,50,50);
+        }
+        .date {
+            font-size: 105%;
+        }
+        .a-tag {
+            color: #000;
+            text-decoration: transparent;
+        }
+        .a-tag:hover {
+            cursor: pointer;
+        }
+        .a-tag:active {
+            color: #000;
+        }
+    </style>
+{% endblock %}
+
+{% block code %}
+    <!-- videos list: videos_info, [video_dict,video_dict,video_dict,video_dict,video_dict,video_dict...]-->
+    <div class="all-videos-div">
+        {% for video in videos_info %}  
+            <div class="video-div">
+                    <p class="video-p">
+                        <a href="/watch/{{video['id']}}"> 
+                            <video class="video">
+                                <source src="{{url_for('static',filename=video['path'])}}" type="video/mp4">
+                            </video>
+                        </a>
+                    </p>
+                    <p class="title">
+                        <a href="/watch/{{video['id']}}" class="a-tag">{{video["title"]}}</a>
+                    </p>
+                    <p class="date">Genre: {{video["genre"]}}</p>
+                    <p class="views">Views: {{video["views"]}}</p>
+                    <p class="date">Uploaded at: {{video["uploaded at"][:-3]}}</p>
+            </div>
+        {% endfor %}
+        {% if videos_info == [] %}
+            <p style="text-align: center; font-size: 120%;">I am sorry but we couldn't find videos that match to your search</p>
+        {% endif %}
+    </div>
+
+    <script> 
+        // makes the searched text to stay as it was
+        document.getElementById("search-input").value = "{{searched}}"
+    </script>
+{% endblock %}

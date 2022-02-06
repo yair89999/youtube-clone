@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <style>
+        .videos-table {
+            position: relative; left: 50%;
+            transform: translateX(-50%);
+
+            width: 90%;
+            padding: 10px;
+            background: rgb(245,245,245);
+        }
+        .video-td {
+            width: 25%;
+            border: 1px solid rgb(200,200,200);
+        }
+        .video {
+            width: 75%;
+            aspect-ratio: 1.5;
+            
+            position: relative; left: 50%;
+            transform: translateX(-50%);
+            margin: 0.5%;
+        }
+        :root {
+            --textsize: 110%
+        }
+        .title {
+            font-size: var(--textsize);
+        }
+        .views {
+            font-size: var(--textsize);
+            position: relative; top: calc(0px - 4.5ch);
+            padding-right: 7px;
+
+            text-align: right;
+            color: rgb(100,100,100);
+        }
+        .genre {
+            font-size: 105%;
+            position: relative; top: calc(0px - 4.5ch);
+            color: rgb(50,50,50);
+        }
+        a {
+            text-decoration: none;
+            color: #000;
+        }
+
+        .sub-btn {
+            transition-duration: 0.2s;
+            font-size: 120%;
+            padding: 5px;
+
+            background-color: rgb(255,0,0);
+            color: #fff;
+            border: 2px solid rgb(227,0,0);
+        }
+        .sub-btn:hover {
+            cursor: pointer;
+            background-color: rgb(255,50,50);
+        }
+        .sub-btn:active {
+            background-color: rgb(200,0,0);
+        }
+        .unsub-btn {
+            transition-duration: 0.2s;
+            font-size: 120%;
+            padding: 5px;
+
+            background-color: rgb(230,230,230);
+            color: #000;
+            border: 2px solid rgb(205,205,205);
+        }
+        .unsub-btn:hover {
+            cursor: pointer;
+            background-color: rgb(205,205,205);
+        }
+        .unsub-btn:active {
+            background-color: rgb(150,150,150);
+        }
+    </style>
+{% endblock %}
+
+{% block code %}
+    <h1 style="text-align: center;">{{user}}'s page</h1>
+    <p style="text-align: center;">
+        {% if subed == False %}
+            <a href="/sub/{{user}}">
+                <button class="sub-btn">Subscribe</button>
+            </a>
+        {% else %}
+            <a href="/unsub/{{user}}">
+                <button class="unsub-btn">unsubscribe</button>
+            </a>
+        {% endif %}
+        <a style="margin-left: 5px;">
+            {{subs}} subscribers
+        </a>
+    </p>
+    <table class="videos-table">
+        {% if user_videos %}
+            {% for videos_list in user_videos %}
+                <tr>
+                    {% for video in videos_list %}
+                        <td class="video-td">
+                            <a href="/watch/{{video['id']}}">
+                                {% if video['path'] %}
+                                    <video class="video"> <!--without the controls becuase he only need to be able to see the video icon from here not to start the video-->
+                                        <source src="{{url_for('static', filename=video['path'])}}" type="video/mp4">
+                                    </video>
+                                {% endif %}
+                                <p class="title">
+                                    {{video["title"]}}
+                                </p>
+                                <p class="views">
+                                    {% if video["views"] %}
+                                        views: {{video["views"]}}
+                                    {% endif %}
+                                </p>
+                                <p class="genre">
+                                    {% if video["genre"] %}
+                                        genre: {{video["genre"]}}
+                                    {% endif %}
+                                </p>
+                            </a>
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        {% else %}
+            <p style="text-align: center;font-size: 150%;">{{error}}</p>
+        {% endif %}
+    </table>
+{% endblock %}

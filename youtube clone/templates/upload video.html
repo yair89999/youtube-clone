@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <style>
+        .upload-div {
+            display: inline-block;
+            position: relative; left: 50%;
+            text-align: center;
+            padding: 10px;
+            transform: translateX(-50%);
+            border: 1px solid rgb(230,230,230);
+        }
+        .inputs {
+            transition-duration: 0.3s;
+            font-size: 120%;
+            width: 50ch;
+
+            border: 2px solid #000;
+        }
+        .inputs:hover {
+            border: 2px solid rgb(33,150,243);
+        }
+        .inputs:focus {
+            background: rgba(33,150,243, 0.5);
+        }
+        .inputs-select {
+            transition-duration: 0.3s;
+            font-size: 120%;
+
+            border: 2px solid #000;
+        }
+        .inputs-select:hover {
+            border: 2px solid rgb(33,150,243);
+        }
+        .inputs-select:focus {
+            background: rgba(33,150,243, 0.2);
+        }
+        .labels {
+            font-size: 120%;
+
+        }
+
+
+        .upload-btn {
+            transition-duration: 0.3s;
+            font-size: 120%;
+            background: rgb(0,191,255);
+            border: 2px solid rgb(0,166,255);
+            border-radius: 5px;
+        }
+        .upload-btn:hover {
+            cursor: pointer;
+            background: rgb(0,141,215);
+        }
+        .upload-btn:active {
+            color: #fff;
+        }
+        .my-videos-a {
+            transition-duration: 0.3s;
+            text-decoration: none;
+            color: #000;
+        }
+        .my-videos-a:active {
+            color: #fff;
+        }
+    </style>
+{% endblock %}
+
+{% block code %}
+    <h1 style="text-align: center;">Upload video</h1>
+    <div class="upload-div">
+        <form method = "POST" enctype = "multipart/form-data">
+            <p>
+                <label for="title" class="labels">Video title: </label>
+                <input name="title" placeholder="title" class="inputs">
+            </p>
+            
+            <p>
+                <label for="genre" class="labels">Genre: </label>
+                <select name="genre" class="inputs-select">
+                    <option>all family</option>
+                    <option>action</option>
+                    <option>comedy</option>
+                    <option>drama</option>
+                    <option>horror</option>
+                    <option>science fiction</option>
+                    <option>science</option>
+                    <option>school related</option>
+                    <option>collage related</option>
+                    <option>Tv related</option>
+                    <option>movies related</option>
+                    <option>movies</option>
+                    <option>Tv shows</option>
+                    <option>under 1 minute</option>
+                    <option>garden</option>
+                    <option>18+</option>
+                    <option>16+</option>
+                    <option>12+</option>
+                    <option>5+</option>
+                </select>
+            </p>
+            <p style="padding-top: 10px;padding-bottom: 10px;">
+                <label for="video file">Upload a video: </label>
+                <input name="video file" type="file" value="choose file">
+            </p>
+
+            <p>
+                <input type="submit" value="Upload video" class="upload-btn">
+            </p>
+            <p>
+                    <button class="upload-btn">
+                        <a href="/my videos" class="my-videos-a">My videos</a>
+                    </button>
+            </p>
+            {% for message in get_flashed_messages() %}
+                <p style="color: #f00; font-size: 100%;">{{ message }}</p>
+            {% endfor %}
+        </form>
+    </div>
+{% endblock %}

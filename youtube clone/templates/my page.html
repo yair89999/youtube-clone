@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <style>
+        .videos-table {
+            position: relative; left: 50%;
+            transform: translateX(-50%);
+
+            width: 90%;
+            padding: 10px;
+            background: rgb(245,245,245);
+        }
+        .video-td {
+            width: 25%;
+            border: 1px solid rgb(200,200,200);
+        }
+        .video {
+            width: 75%;
+            aspect-ratio: 1.5;
+            
+            position: relative; left: 50%;
+            transform: translateX(-50%);
+            margin: 0.5%;
+        }
+        :root {
+            --textsize: 110%
+        }
+        .title {
+            font-size: var(--textsize);
+        }
+        .views {
+            font-size: var(--textsize);
+            position: relative; top: calc(0px - 4.5ch);
+            padding-right: 7px;
+
+            text-align: right;
+            color: rgb(100,100,100);
+        }
+        .genre {
+            font-size: 105%;
+            position: relative; top: calc(0px - 4.5ch);
+            color: rgb(50,50,50);
+        }
+        a {
+            text-decoration: none;
+            color: #000;
+        }
+
+        .videos-handler-btn {
+            transition-duration: 0.3s;
+            font-size: 120%;
+            margin: 10px;
+
+            background: rgb(30,144,255);
+            border: 2px solid rgb(15, 122, 228); /* this color is the mean of the hovering bg color and the normal bg color */
+            color: #000;
+
+            border-radius: 5px;
+        }
+        .videos-handler-btn:hover {
+            cursor: pointer;
+            background: rgb(0, 101, 202);
+        }
+        .videos-handler-btn:active {
+            color: #fff;
+        }
+    </style>
+{% endblock %}
+
+{% block code %}
+    <h1 style="text-align: center;">My page</h1>
+    <p style="text-align: center;">
+        <a href="/my videos">
+            <button class="videos-handler-btn">Videos handler</button>
+        </a>
+    </p>
+    <table class="videos-table">
+        <tr>
+            <td>
+                You have {{subs}} subscribers
+            </td>
+        </tr>
+        {% for videos_list in user_videos %}
+            <tr>
+                {% for video in videos_list %}
+                    <td class="video-td">
+                        <a href="/watch/{{video['id']}}">
+                            {% if video['path'] %}
+                                <video class="video">
+                                    <source src="{{url_for('static', filename=video['path'])}}" type="video/mp4">
+                                </video>
+                            {% endif %}
+                            <p class="title">
+                                {{video["title"]}}
+                            </p>
+                            <p class="views">
+                                {% if video["views"] %}
+                                    views: {{video["views"]}}
+                                {% endif %}
+                            </p>
+                            <p class="genre">
+                                {% if video["genre"] %}
+                                    genre: {{video["genre"]}}
+                                {% endif %}
+                            </p>
+                        </a>
+                    </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

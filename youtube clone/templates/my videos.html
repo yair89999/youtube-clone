@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <style>
+        :root {
+            --tablewidth:75%;
+        }
+        .videos {
+            position: relative; left: 50%;
+            transform: translateX(-50%);
+            width: var(--tablewidth);
+            text-align: left;
+            border-collapse: collapse;
+        }
+
+        td,th {
+            width: 16%;
+            padding: 5px;
+            background: rgba(200,200,200,0.3);
+            border: 1px solid rgb(180,180,180);
+        }
+        th {
+            font-size: 115%;
+        }
+
+
+        .upload-table {
+            position: relative; left: 50%;
+            transform: translateX(-50%);
+            width: var(--tablewidth);
+            text-align: center;
+            border-collapse: collapse;
+        }
+        .upload-td {
+            background: transparent;
+        }
+        .upload-td > a > .upload-btn {
+            transition-duration: 0.3s;
+            font-size: 120%;
+            margin: 10px;
+
+            background: rgb(30,144,255);
+            border: 2px solid rgb(15, 122, 228); /* this color is the mean of the hovering bg color and the normal bg color */
+            color: #000;
+
+            border-radius: 5px;
+        }
+        .upload-td > a > .upload-btn:hover {
+            cursor: pointer;
+            background: rgb(0, 101, 202);
+        }
+        .upload-td > a > .upload-btn:active {
+            color: #fff;
+        }
+        .video-link {
+            text-decoration: none;
+            color: #000;
+        }
+        .video-link:hover {
+            cursor: pointer;
+            color: #00f;
+        }
+        .video-link:active {
+            color: rgb(0,0,200);
+        }
+
+        .del-btn {
+            transition-duration: 0.3s;
+            font-size: 120%;
+            padding: 5px;
+
+            background: rgb(0,191,255);
+            border: 2px solid rgb(0,171,235);
+            border-radius: 5px;
+        }
+        .del-btn:hover {
+            cursor: pointer;
+            background: rgb(0,151,215);
+        }
+        .del-btn:active {
+            color: #fff;
+        }
+    </style>
+{% endblock %}
+
+{% block code %}
+    <h1 style="text-align: center;">My videos</h1>
+    <table class="videos">
+        <tr>
+            <th></th>
+            <th>Video id</th>
+            <th>Title</th>
+            <th>Genre</th>
+            <th>Views</th>
+            <th>Uploaded at</th>
+        </tr>
+
+        {% for video in user_videos %}
+            <tr>
+                <td>
+                    <a href="/del video/{{video['id']}}">
+                        <button class="del-btn">Del video</button>
+                    </a>
+                </td>
+                <td>
+                    <a href="/watch/{{video['id']}}" class="video-link">
+                        {{video["id"]}}
+                    </a>
+                </td>
+                <td>
+                    <a href="/watch/{{video['id']}}" class="video-link">
+                        {{video["title"]}}
+                    </a>
+                </td>
+                <td>{{video["genre"]}}</td>
+                <td>{{video["views"]}}</td>
+                <td>{{video["uploaded at"]}} IST</td> <!--ITS = Israel Standard Time-->
+            </tr>
+        {% endfor %}
+    </table>
+    {% if user_videos == [] %}
+        <p style="text-align: center;">You didnt upload any video yet</p>
+    {% endif %}
+    <table class="upload-table">
+        <tr>
+            <td class="upload-td">
+                <a href="/upload video">
+                    <button class="upload-btn">new video</button>
+                </a>
+            </td>
+        </tr>
+    </table>
+{% endblock %}

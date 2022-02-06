@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <style>
+        .body {
+            width: 100%;
+            height: 44.2vw;
+            background: linear-gradient(-180deg,rgb(0,238,238), rgb(0,139,139));
+        }
+        .txt-404 {
+            position: absolute;left: 50%;top: 50%;
+            transform: translate(-50%,-50%);
+            font-size: 500%;
+        }
+    </style>
+{% endblock %}
+
+{% block code %}
+    <div class="body">
+        <h1 class="txt-404">
+            <a style="color: rgb(50,50,200);">404</a> <a style="color: rgb(50,50,255);">page not found</a>
+        </h1>
+    </div>
+{% endblock %}

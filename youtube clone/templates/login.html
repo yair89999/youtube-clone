@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <style>
+        .login {
+            display: inline-block; /* width by what is inside it */
+            position: relative;left: 50%;
+            transform: translateX(-50%);
+
+            border: 2px solid rgb(0,134,139);
+            border-radius: 10px;
+            background: rgba(0,255,255, 0.3);
+
+            padding: 10px;
+
+            text-align: center;
+            aspect-ratio: 0.9;
+        }
+        .labels {
+            font-size: 150%;
+        }
+        .inputs {
+            transition-duration: 0.3s;
+            font-size: 150%;
+            width: 15ch;
+            border-radius: 10px;
+            padding-left: 1ch;
+            border: 2px solid #000;
+        }
+        .inputs:hover {
+            border: 2px solid rgb(0,134,139);
+        }
+        .inputs:focus {
+            background: rgba(0,134,139, 0.5);
+        }
+        .login-btn2 {
+            transition-duration: 0.3s;
+
+            background: rgb(0,245,255);
+
+            border: 1px solid rgb(0,134,139);
+            border-radius: 100px;
+
+            font-size: 140%;
+        }
+        .login-btn2:hover {
+            background: rgb(0,134,139);
+            cursor: pointer;
+        }
+        .login-btn2:active {
+            color: #fff;
+        }
+    </style>
+{% endblock %}
+
+{% block code %}
+    <h1 style="text-align: center;">Login page</h1>
+
+    <div class="login">
+        <h1>Login</h1>
+        <form method="post">
+            <p>
+                <label for="username" class="labels">Username: </label>
+                <input name="username" class="inputs" value="{{username}}">
+            </p>
+            <p>
+                <label for="password" class="labels">Password: </label>
+                <input name="password" class="inputs" id="password" type="password" value="{{password}}">
+            </p>
+            <p>
+                <label for="show-password">Show password</label>
+                <input type="checkbox" class="show-password" onclick="change_password()">
+            </p>
+            <p>
+                <input type="submit" class="login-btn2" value="Login">
+            </p>
+
+
+            <p>
+                <a href="/create user">Don't have an account?</a>
+            </p>
+            <p>
+                <a href="/forgot password">Forgot your password?</a>
+            </p>
+
+            <!--flash message-->
+            {% for message in get_flashed_messages() %}
+                <p style="color: #f00; font-size: 120%;">{{ message }}</p>
+            {% endfor %}
+        </form>
+    </div>
+    <script>
+        function change_password(){
+            var checkbox = document.getElementById("password")
+            if (checkbox.type === "password"){
+                checkbox.type = "text"
+            } else {
+                checkbox.type = "password"
+            }
+        }
+    </script>
+{% endblock %}

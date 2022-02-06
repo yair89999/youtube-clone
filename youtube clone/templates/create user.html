@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <style>
+        .create {
+            display: inline-block; /* width by what is inside it */
+            position: relative;left: 50%;
+            transform: translateX(-50%);
+
+            border: 2px solid rgb(0,134,139);
+            border-radius: 10px;
+            background: rgba(0,255,255, 0.3);
+
+            padding: 10px;
+
+            text-align: center;
+            aspect-ratio: 0.9;
+        }
+        .labels {
+            font-size: 150%;
+        }
+        .inputs {
+            transition-duration: 0.3s;
+            font-size: 150%;
+            width: 15ch;
+            border-radius: 10px;
+            padding-left: 1ch;
+            border: 2px solid #000;
+        }
+        .inputs:hover {
+            border: 2px solid rgb(0,134,139);
+        }
+        .inputs:focus {
+            background: rgba(0,134,139, 0.5);
+        }
+        .create-btn {
+            transition-duration: 0.3s;
+
+            background: rgb(0,245,255);
+
+            border: 1px solid rgb(0,134,139);
+            border-radius: 100px;
+
+            font-size: 140%;
+        }
+        .create-btn:hover {
+            background: rgb(0,134,139);
+        }
+        .create-btn:active {
+            color: #fff;
+        }
+    </style>
+{% endblock %}
+
+{% block code %}
+    <h1 style="text-align: center;">Create user page</h1>
+
+    <div class="create">
+        <h1>create user</h1>
+        <form method="post">
+            <!--need to fill up:
+            username
+            password
+            password confirm
+            email-->
+            <!--name = username-->
+            <p>
+                <label for="username" class="labels">Username: </label>
+                <input name="username" class="inputs" value="{{username}}">
+            </p>
+            <!--name = password-->
+            <p>
+                <label for="password" class="labels">Password: </label>
+                <input name="password" class="inputs" id="password" type="password" value="{{password}}">
+            </p>
+            <!--dont have name(checkbox)-->
+            <p>
+                <label for="show-password">Show password</label>
+                <input type="checkbox" class="show-password" onclick="change_password()">
+            </p>
+            <!--name = password-confirm-->
+            <p>
+                <label for="password-confirm" class="labels">Password confirm: </label>
+                <input name="password confirm" class="inputs" type="password" value="{{password_confirm}}">
+            </p>
+            <!--name = email-->
+            <p>
+                <label for="email" class="labels">Email: </label>
+                <input name="email" class="inputs" style="width: 23ch;" value="{{email}}">
+            </p>
+            <!--name = icon color-->
+            <p>
+                <label for="icon color" class="labels">Icon color: </label>
+                <input name="icon color" class="inputs" style="width: 10ch; padding: 4px;" value="{{icon_color}}" type="color">
+            </p>
+
+            <p>
+                <input type="submit" class="create-btn" value="Create">
+            </p>
+
+
+            <p>
+                <a href="/login">Have an account?</a>
+            </p>
+
+            <!--flash message-->
+            {% for message in get_flashed_messages() %}
+                <p style="color: #f00; font-size: 120%;">{{ message }}</p>
+            {% endfor %}
+        </form>
+    </div>
+    <script>
+        function change_password(){
+            var checkbox = document.getElementById("password")
+            if (checkbox.type === "password"){
+                checkbox.type = "text"
+            } else {
+                checkbox.type = "password"
+            }
+        }
+    </script>
+{% endblock %}
